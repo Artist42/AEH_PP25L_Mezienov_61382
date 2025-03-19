@@ -6,6 +6,45 @@ public class mojaTrzeciaAplikacja {
 
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("Wpisz illosc dni. Lub wartość poniżej 0 żeby wyjść z programu:");
+        var days = scanner.nextInt();
+
+        while(days>0) {
+
+            int weeks = days/7;
+            int remainingDays = days % 7;
+            System.out.println(days + " dni to " + weeks + " tygodnie i " + remainingDays +" dni ");
+            System.out.println("Wpisz illosc dni. Lub wartość poniżej 0 żeby wyjść z programu:");
+            days = scanner.nextInt();
+        }
+
+        System.out.println("No wtedy podaj przynajmniej temperature w skali Celsjusz’a lub -1 zeby wyjsc::");
+        var Celsjusz = scanner.nextDouble();
+
+        while(Celsjusz!=-1) {
+
+            double Fahrenheit = 1.8 * Celsjusz + 32.0;
+            double Kelwin = Celsjusz + 273.16;
+            System.out.printf("Stopni Celsjusz'a %.2f to bedzie %.2f Fahrenheit'ow i %.2f Kelwin'a \n", Celsjusz, Fahrenheit, Kelwin);
+         //   System.out.println("Fahrenheit'ow i \n" + Kelwin + " Kelwin'a ";
+
+            System.out.println("Podaj temperature w skali Celsjusz’a lub -1 zeby wyjsc:");
+            Celsjusz = scanner.nextDouble();
+
+        }
+
+        System.out.println("No ja tak nie gram, to tak nie dziala. Do widzenia");
+
+        scanner.close();
+
+
+
+
+
+
+
+        /*Scanner scanner = new Scanner(System.in);
+
         System.out.println("Podaj proszę liczbę większą od 100:");
 
         //pętla WHILE (https://introcs.cs.princeton.edu/java/11cheatsheet/images/while.png)
@@ -55,6 +94,7 @@ public class mojaTrzeciaAplikacja {
                 break;
             }
         }
-        scanner.close();
+        scanner.close();*/
     }
+
 }
