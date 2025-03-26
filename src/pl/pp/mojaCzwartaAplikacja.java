@@ -1,15 +1,64 @@
 package pl.pp;
 import java.util.Scanner;
 
-public class mojaTrzeciaAplikacja {
+public class mojaCzwartaAplikacja {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Wpisz illosc dni. Lub wartość poniżej 0 żeby wyjść z programu:");
-        var days = scanner.nextInt();
+        System.out.println("Enter lower and upper integer limits:");
+        var num1 = scanner.nextInt();
+        var num2 = scanner.nextInt();
 
-        while(days>0) {
+        while (num1 <= num2) {
+            var num11=num1*num1;
+            var num22=num2*num2;
+            var sum=num11+num22;
+            System.out.println("The sum of the squares from " + num11 + " to " + num22 + " is " + sum);
+            System.out.print("Enter next lower and upper integer limits:");
+            num1 = scanner.nextInt();
+            num2 = scanner.nextInt();
+        }
+
+        System.out.println("Well in this case choose another operation,");
+        System.out.println("enter one of symbols for following operations: + - * / ");
+
+        var operation = scanner.next();
+         switch (operation){
+             case "+":
+                 var sum2=num1+num2;
+                 System.out.println("The sum of " + num1 + " and " + num2 + " is " + sum2);
+                 break;
+             case "-":
+                 var subtraction=num1-num2;
+                 System.out.println("The subtraction of " + num1 + " and " + num2 + " is " + subtraction);
+                 break;
+             case "*":
+                 var mult=num1*num2;
+                 System.out.println("The multiplication of " + num1 + " and " + num2 + " is " + mult);
+                 break;
+             case "/":
+                 var divis=num1/num2;
+                 System.out.println("The division of " + num1 + " and " + num2 + " is " + divis);
+                 break;
+
+             default:
+                 System.out.println("Buy-buy");
+                 scanner.close();
+         }
+
+
+
+
+
+        System.out.println("Buy-buy");
+        scanner.close();
+
+
+
+
+
+        /*while(days>0) {
 
             int weeks = days/7;
             int remainingDays = days % 7;
@@ -35,7 +84,7 @@ public class mojaTrzeciaAplikacja {
 
         System.out.println("No ja tak nie gram, to tak nie dziala. Do widzenia");
 
-        scanner.close();
+        scanner.close();*/
 
 
 
@@ -98,3 +147,5 @@ public class mojaTrzeciaAplikacja {
     }
 
 }
+
+
