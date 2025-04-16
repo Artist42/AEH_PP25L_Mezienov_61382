@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class mojaSzostaAplikacja {
 
-    static int factorial(int n) {
+    static long factorial(long n) {
         if (n == 1) return 1;
         return n * factorial(n - 1);
     }
@@ -13,20 +13,26 @@ public class mojaSzostaAplikacja {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter an integer number and I'll calculate a factorial \n IF YOUR NUMBER IS LARGER THAN 20 - SAVE YOUR IMPORTANT WORK BEFORE LAUNCH: ");
-        var number = scanner.nextInt();
-        int result = 1;
+        System.out.println("Enter an integer number and I'll calculate a factorial \n Don't use more than 25 and without 0 - SAVE YOUR IMPORTANT WORK BEFORE LAUNCH: ");
+        long number = scanner.nextLong();
+        long startTime = System.nanoTime();
+        long result = 1;
         for (int i = 1; i <= number; i++) {
             result=result*i;
         }
 
+        long endTime = System.nanoTime();
         System.out.println("Iterationally you get: " + result);
         System.out.println("Recurrently you get: " + factorial(number));
+        long executionTime = (endTime - startTime);
+        System.out.println("Counting all of that stuff took me " + executionTime + " nano seconds");
         scanner.close();
+    }
+
 
     }
 
-}
+
 
 
 
