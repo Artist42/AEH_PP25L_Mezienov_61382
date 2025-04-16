@@ -38,7 +38,7 @@ public class mojaSzostaAplikacja {
 
 
  /*
-
+.
 // Java Program to demonstrate use
 // of System.nanoTime() method
 import java.io.*;
