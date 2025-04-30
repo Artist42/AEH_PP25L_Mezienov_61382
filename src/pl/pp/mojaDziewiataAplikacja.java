@@ -1,8 +1,25 @@
 package pl.pp;
-import pl.pp.Person;
 
-public class mojaOsmaAplikacja {
+public class mojaDziewiataAplikacja {
     public static void main(String[] args) {
+
+
+        Magazyn magazyn = new Magazyn(1, 5000, "Jan Kowalski","jan.kowalski@magazyn.pl","+48 987 654 321");
+
+
+        magazyn.dodajTowar(3000);
+        magazyn.usunTowar(1000);
+        magazyn.dodajTowar(2500);
+        magazyn.dodajTowar(3500);
+        magazyn.sprawdzZajetosc();
+        magazyn.aktualizujKontakt("owner@magazyn.pl", "+48 123 456 789");
+
+
+        System.out.println("\n");
+
+
+
+
 
         Konto konto1 = new Konto("RichPerson", "235263263563", 1200, "lorenipsum@gmail.com", "3253543453");
 
