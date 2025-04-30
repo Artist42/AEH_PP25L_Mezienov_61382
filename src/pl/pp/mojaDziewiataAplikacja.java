@@ -21,6 +21,7 @@ public class mojaDziewiataAplikacja {
 
 
 
+
         Konto konto1 = new Konto("RichPerson", "235263263563", 1200, "lorenipsum@gmail.com", "3253543453");
 
         String NazwaWlasciciela = konto1.getNazwaWlasciciela();

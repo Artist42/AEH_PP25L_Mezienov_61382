@@ -38,6 +38,7 @@ public class Magazyn {
         }
     }
 
+
     public void usunTowar(int ilosc) {
         if (ilosc <= 0) {
             System.out.println("Ilość towaru do usunięcia musi być większa niż 0.");
