@@ -1,17 +1,10 @@
 package pl.pp;
 
-import java.util.Scanner;
-
 public class Person {
     // pola (atrybuty) klasy określającej obiekt "Person" (jego parametry/cechy)
-    public String forename; // pole przechowujące cechę imię
-    public String surname; // pole przechowujące cechę nazwisko
-    public int age; // pole przechowujące cechę wiek
-    public String adres;
-    public int rok_urodzenia;
-
-
-    Scanner scanner = new Scanner(System.in);
+    private String forename; // pole przechowujące cechę imię
+    private String surname; // pole przechowujące cechę nazwisko
+    private int age; // pole przechowujące cechę wiek
 
     /**
      * Konstruktor domyślny - element inicjalizujący pola obiektu podczas jego tworzenia
@@ -22,45 +15,44 @@ public class Person {
     }
 
     /**
-     * Konstruktor z trzema parametrami, które możemy podać przy jego tworzeniu
+     * Konstruktor z trzema parametrami, które możemy podać przy jego tworzeniu,
+     * wykorzystanie "this" pozwala m.in. na skorzystanie z tych samych nazw
+     * pól i zmiennych
      */
-    public Person(String initForename, String initSurname, int initAge, String initAdres, int initRokUrodzenia) {
-        forename = initForename;
-        surname = initSurname;
-        age = initAge;
-        adres = initAdres;
-        rok_urodzenia = initRokUrodzenia;
+    public Person(String forename, String surname, int age) {
+        this.forename = forename;
+        this.surname = surname;
+        this.age = age;
     }
 
     // metody klasy określające akcje możliwe do wykonania przez obiekt
     public void hiToAll(){
-        System.out.println("Nazywam się " + forename + " " + surname + ". " + "Mam " + age + " lat. " + "Mieszkam za adresem " + adres + ". Jestem " + rok_urodzenia + " roku urodzenia.");
+        System.out.println("Nazywam się " + forename + " " + surname + ". " + "Mam " + age + " lat.");
     }
 
     // przykładowa metoda growOld, która zwiększa dany wiek obiektu o jeden za każdym jej wywołaniem
-    public int growOld(){
-        System.out.println("How much older should he/she get?");
-        int howManyYearsOlder = scanner.nextInt();
-        age = age + howManyYearsOlder;
-        return age;
-
-    }
-
-    public int beYounger(){
-        age = age - 1;
+    public int growOld(int age){
+        this.age += age;
         return age;
     }
 
-
-    // przykładowa metoda getName zwracająca wartość forename obiektu
-    public String getName(){
+    //tzw. "gettery" i "settery" pól prywatnych
+    public String getForename(){
         return forename;
     }
-
-    // przykładowa metoda setName ustawiająca wartość forename obiektu
-    public void setName(String nameToSet){
-        forename = nameToSet;
+    public void setForename(String forename){
+        this.forename = forename;
     }
-
+    public String getSurname(){
+        return surname;
+    }
+    public void setSurname(String surname){
+        this.surname = surname;
+    }
+    public int getAge(){
+        return age;
+    }
+    public void setAge(int age){
+        this.age = age;
+    }
 }
-
