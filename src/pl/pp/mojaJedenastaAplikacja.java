@@ -1,42 +1,48 @@
 package pl.pp;
 
 //import java.util.*;
+import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
-public class mojaDziesiataAplikacja {
+
+public class mojaJedenastaAplikacja {
 
 
-    public static int[] countAndSumElements(int[] input) {
-        if (input == null || input.length == 0) {
-            return new int[0]; // zwracamy pustą tablicę
+    public static void main(String[] args) {
+        List<Student> students = Arrays.asList(
+                new Student("12345", "Jan", "Kowalski", Arrays.asList(4, 5, 3, 5)),
+                new Student("67890", "Anna", "Nowak", Arrays.asList(5, 5, 4, 4)),
+                new Student("54321", "Paweł", "Wiśniewski", Arrays.asList(2, 3, 2, 4)),
+                new Student("09876", "Katarzyna", "Kowalczyk", Arrays.asList(5, 4, 4, 5))
+        );
+
+        // Знайти студента з найвищим середнім балом
+        Student topStudent = Collections.max(students, Comparator.comparingDouble(Student::getAverageGrade));
+
+        // Обчислити середній бал усіх студентів
+        double totalSum = 0;
+        int totalGradesCount = 0;
+        for (Student s : students) {
+            totalSum += s.getAverageGrade() * s.getGrades().size();
+            totalGradesCount += s.getGrades().size();
         }
+        double overallAverage = totalGradesCount > 0 ? totalSum / totalGradesCount : 0;
 
-        int negativeCount = 0;
-        int positiveSum = 0;
+        // Відсортувати студентів за прізвищем
+        students.sort(Comparator.comparing(Student::getLastName));
 
-        for (int num : input) {
-            if (num < 0) {
-                negativeCount++;
-            } else if (num > 0) {
-                positiveSum += num;
-            }
-            // liczby równe zero ignorujemy zgodnie z zadaniem
+        // Вивести результати
+        System.out.printf("Student with highest ave. score: %s %s (%s) - Average: %.2f%n",
+                topStudent.getFirstName(), topStudent.getLastName(), topStudent.getIndexNumber(), topStudent.getAverageGrade());
+
+        System.out.printf("Average score of all students: %.2f%n", overallAverage);
+
+        System.out.println("Students sorted by surname:");
+        for (Student s : students) {
+            System.out.println(s);
         }
-
-
-        return new int[]{negativeCount, positiveSum};
-    }
-
-
-        public static void main(String[] args) {
-            int[] input = {1, 2, 3, 4, 5, -3, -2, -1};
-            int[] result = countAndSumElements(input);
-
-            if (result.length == 0) {
-                System.out.println("Tablica wejściowa jest pusta lub null.");
-            } else {
-                System.out.println("Liczba elementów ujemnych: " + result[0]);
-                System.out.println("Suma elementów dodatnich: " + result[1]);
-            }
     }
 
 
