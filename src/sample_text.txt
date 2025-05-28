@@ -1,0 +1,2 @@
+Nazwa pliku: sample_text.txt
+Liczba linii: 2
