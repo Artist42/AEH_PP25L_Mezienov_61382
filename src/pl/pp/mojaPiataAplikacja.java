@@ -1,26 +1,40 @@
 package pl.pp;
+
 import java.util.Scanner;
 
 public class mojaPiataAplikacja {
+
+    // Metoda drukująca znak symbol określoną liczbę razy w określonej liczbie linii
+    public static void printSymbolLines(char symbol, int countPerLine, int linesCount) {
+        for (int j = 0; j < linesCount; j++) {
+            for (int i = 0; i < countPerLine; i++) {
+                System.out.print(symbol);
+            }
+            System.out.println(); // nowa linia po każdym wierszu
+        }
+    }
+
     public static void main(String[] args) {
-
-
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter special symbol and 2 int. numbers: ");
-        var spsymbol = scanner.nextLine();
-        var num1 = scanner.nextInt();
-        var num2 = scanner.nextInt();
+        System.out.println("Podaj znak:");
+        String input = scanner.nextLine();
+        // Pobieramy pierwszy znak z wprowadzonego ciągu
+        char symbol = input.charAt(0);
 
-        for (int j = num2; j >= 1; j--) {
-            for (int i = num1; i >=1; i--) System.out.print(spsymbol);
-            System.out.print("\n");
-        }
+        System.out.println("Podaj liczbę powtórzeń znaku w wierszu:");
+        int countPerLine = scanner.nextInt();
+
+        System.out.println("Podaj liczbę linii do wydrukowania:");
+        int linesCount = scanner.nextInt();
+
+        // Wywołanie metody
+        printSymbolLines(symbol, countPerLine, linesCount);
 
         scanner.close();
-
     }
 }
+
 
 
 
