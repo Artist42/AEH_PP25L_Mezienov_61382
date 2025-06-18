@@ -1,131 +1,178 @@
 package pl.pp;
 
-// Abstrakcyjna klasa Pojazd
+
+
 public abstract class Pojazd {
-    protected String nrRejestracyjny;
-    protected String numerVin;
+    protected String id;
+    protected String model;
     protected String kolor;
-    protected double cena;
-    protected double spalanie;
-    protected double poziomPaliwa;
+    protected double cenaZaGodzine;
+    protected boolean dostepny;
     protected double przebieg;
 
-    public Pojazd(String nrRejestracyjny, String numerVin, String kolor, double cena, double spalanie, double poziomPaliwa, double przebieg) {
-        this.nrRejestracyjny = nrRejestracyjny;
-        this.numerVin = numerVin;
+    public Pojazd(String id, String model, String kolor, double cenaZaGodzine, double przebieg) {
+        this.id = id;
+        this.model = model;
         this.kolor = kolor;
-        this.cena = cena;
-        this.spalanie = spalanie;
-        this.poziomPaliwa = poziomPaliwa;
+        this.cenaZaGodzine = cenaZaGodzine;
+        this.dostepny = true;
         this.przebieg = przebieg;
     }
 
-    public abstract void prowadz();
+    public abstract void jazda();
 
-    public void zatankuj(double ilosc) {
-        this.poziomPaliwa += ilosc;
-        System.out.println("Zatankowano " + ilosc + " litrów paliwa.");
+    public void wypozycz() {
+        if (dostepny) {
+            this.dostepny = false;
+            System.out.println("Pojazd " + id + " został wypożyczony.");
+        } else {
+            System.out.println("Pojazd " + id + " nie jest dostępny.");
+        }
+    }
+
+    public void zwroc() {
+        this.dostepny = true;
+        System.out.println("Pojazd " + id + " został zwrócony.");
+    }
+
+    public boolean isDostepny() {
+        return dostepny;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public double getCenaZaGodzine() {
+        return cenaZaGodzine;
     }
 }
 
-// Interfejs typPaliwa
-interface typPaliwa {
-    String getTypPaliwa();
+// Interfejs typ zasilania
+interface TypZasilania {
+    String getTypZasilania();
+    int getMaxZasieg();
 }
 
-// Implementacje interfejsu typPaliwa
-class Diesel implements typPaliwa {
-    public String getTypPaliwa() {
-        return "Diesel";
+// Implementacje interfejsu TypZasilania
+class Mechaniczny implements TypZasilania {
+    public String getTypZasilania() {
+        return "Mechaniczny";
+    }
+
+    public int getMaxZasieg() {
+        return 0; // brak ograniczeń
     }
 }
 
-class Benzyna implements typPaliwa {
-    public String getTypPaliwa() {
-        return "Benzyna";
-    }
-}
+class Elektryczny implements TypZasilania {
+    private int poziomBaterii;
 
-class Elektryk implements typPaliwa {
-    public String getTypPaliwa() {
-        return "Elektryk";
+    public Elektryczny(int poziomBaterii) {
+        this.poziomBaterii = poziomBaterii;
+    }
+
+    public String getTypZasilania() {
+        return "Elektryczny";
+    }
+
+    public int getMaxZasieg() {
+        return poziomBaterii * 2; // 2km na 1% baterii
+    }
+
+    public void naladuj() {
+        this.poziomBaterii = 100;
+        System.out.println("Bateria naładowana do 100%");
     }
 }
 
 // Klasy dziedziczące po Pojazd
-class Osobowe extends Pojazd {
-    private int liczbaDrzwi;
-    private typPaliwa paliwo;
+class Rower extends Pojazd {
+    private int liczbaBiegow;
+    private TypZasilania zasilanie;
 
-    public Osobowe(String nrRejestracyjny, String numerVin, String kolor, double cena, double spalanie, double poziomPaliwa, double przebieg, int liczbaDrzwi, typPaliwa paliwo) {
-        super(nrRejestracyjny, numerVin, kolor, cena, spalanie, poziomPaliwa, przebieg);
-        this.liczbaDrzwi = liczbaDrzwi;
-        this.paliwo = paliwo;
+    public Rower(String id, String model, String kolor, double cenaZaGodzine, double przebieg,
+                 int liczbaBiegow, TypZasilania zasilanie) {
+        super(id, model, kolor, cenaZaGodzine, przebieg);
+        this.liczbaBiegow = liczbaBiegow;
+        this.zasilanie = zasilanie;
     }
 
-    public void prowadz() {
-        System.out.println("Prowadzenie samochodu osobowego.");
+    public void jazda() {
+        System.out.println("Jazda na rowerze " + model);
     }
 
-    public String getTypPaliwa() {
-        return paliwo.getTypPaliwa();
-    }
-}
-
-class Ciezarowka extends Pojazd {
-    private double ladownosc;
-    private typPaliwa paliwo;
-
-    public Ciezarowka(String nrRejestracyjny, String numerVin, String kolor, double cena, double spalanie, double poziomPaliwa, double przebieg, double ladownosc, typPaliwa paliwo) {
-        super(nrRejestracyjny, numerVin, kolor, cena, spalanie, poziomPaliwa, przebieg);
-        this.ladownosc = ladownosc;
-        this.paliwo = paliwo;
+    public String getTypZasilania() {
+        return zasilanie.getTypZasilania();
     }
 
-    public void prowadz() {
-        System.out.println("Prowadzenie ciężarówki.");
-    }
-
-    public String getTypPaliwa() {
-        return paliwo.getTypPaliwa();
+    public int getMaxZasieg() {
+        return zasilanie.getMaxZasieg();
     }
 }
 
-class Motocykl extends Pojazd {
-    private boolean posiadaDostawke;
-    private typPaliwa paliwo;
+class Hulajnoga extends Pojazd {
+    private boolean skladana;
+    private TypZasilania zasilanie;
 
-    public Motocykl(String nrRejestracyjny, String numerVin, String kolor, double cena, double spalanie, double poziomPaliwa, double przebieg, boolean posiadaDostawke, typPaliwa paliwo) {
-        super(nrRejestracyjny, numerVin, kolor, cena, spalanie, poziomPaliwa, przebieg);
-        this.posiadaDostawke = posiadaDostawke;
-        this.paliwo = paliwo;
+    public Hulajnoga(String id, String model, String kolor, double cenaZaGodzine, double przebieg,
+                     boolean skladana, TypZasilania zasilanie) {
+        super(id, model, kolor, cenaZaGodzine, przebieg);
+        this.skladana = skladana;
+        this.zasilanie = zasilanie;
     }
 
-    public void prowadz() {
-        System.out.println("Prowadzenie motocykla.");
+    public void jazda() {
+        System.out.println("Jazda na hulajnodze " + model);
     }
 
-    public String getTypPaliwa() {
-        return paliwo.getTypPaliwa();
+    public String getTypZasilania() {
+        return zasilanie.getTypZasilania();
+    }
+
+    public int getMaxZasieg() {
+        return zasilanie.getMaxZasieg();
+    }
+}
+
+// Klasa reprezentująca wypożyczenie
+class Wypozyczenie {
+    private String idKlienta;
+    private Pojazd pojazd;
+    private long czasRozpoczecia;
+    private long czasZakonczenia;
+    private boolean aktywne;
+
+    public Wypozyczenie(String idKlienta, Pojazd pojazd) {
+        this.idKlienta = idKlienta;
+        this.pojazd = pojazd;
+        this.czasRozpoczecia = System.currentTimeMillis();
+        this.aktywne = true;
+    }
+
+    public void zakonczWypozyczenie() {
+        this.czasZakonczenia = System.currentTimeMillis();
+        this.aktywne = false;
+        pojazd.zwroc();
+    }
+
+    public double obliczKoszt() {
+        long czasTrwania = (aktywne ? System.currentTimeMillis() : czasZakonczenia) - czasRozpoczecia;
+        double godziny = czasTrwania / (1000.0 * 60 * 60); // konwersja na godziny
+        return Math.ceil(godziny) * pojazd.getCenaZaGodzine();
+    }
+
+    public boolean isAktywne() {
+        return aktywne;
+    }
+
+    public Pojazd getPojazd() {
+        return pojazd;
+    }
+
+    public String getIdKlienta() {
+        return idKlienta;
     }
 }
 
-class SprzetBudowlany extends Pojazd {
-    private double przepracowaneGodziny;
-    private typPaliwa paliwo;
-
-    public SprzetBudowlany(String nrRejestracyjny, String numerVin, String kolor, double cena, double spalanie, double poziomPaliwa, double przebieg, double przepracowaneGodziny, typPaliwa paliwo) {
-        super(nrRejestracyjny, numerVin, kolor, cena, spalanie, poziomPaliwa, przebieg);
-        this.przepracowaneGodziny = przepracowaneGodziny;
-        this.paliwo = paliwo;
-    }
-
-    public void prowadz() {
-        System.out.println("Prowadzenie sprzętu budowlanego.");
-    }
-
-    public String getTypPaliwa() {
-        return paliwo.getTypPaliwa();
-    }
-}
 
